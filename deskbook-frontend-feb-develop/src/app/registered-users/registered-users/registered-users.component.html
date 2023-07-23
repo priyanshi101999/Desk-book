@@ -1,0 +1,131 @@
+<div class="registered-user d-flex flex-row overflow-hidden">
+    <!-- sidebar -->
+    <input type="checkbox" id="check" style="display: none;">
+    <div class="sidebar">
+        <!-- Brand container -->
+        <div class="admin-brand-container d-flex align-items-center ">
+            <figure class="dblogo ">
+                <img src="../assets/images/db-icon.png" alt="dblogo">
+            </figure>
+            <h5 class="brand-title d-flex ms-2 mt-2 mb-0 d-none d-sm-block">DeskBook</h5>
+        </div>
+        <!-- End: Brand container -->
+
+        <!-- sidebar navigation link -->
+        <div class="sidebar-list d-flex flex-column justify-content-between">
+            <div class="sidebar-links d-flex flex-column">
+                <div class="list d-flex flex-row">
+                    <img src="../assets/images/dashboard.png" alt="">
+                    <span>Dashboard</span>
+                </div>
+                <div class="list d-flex flex-row">
+                    <img src="../assets/images/seat-configuration.png" alt="">
+                    <span>Seat Configuration</span>
+                </div>
+                <div class="list d-flex flex-row">
+                    <img src="../assets/images/booking-history.png" alt="">
+                    <span>Booking History</span>
+                </div>
+                <div class="list d-flex flex-row">
+                    <img src="../assets/images/request-history.png" alt="">
+                    <span>Request History</span>
+                </div>
+                <div class="list1 d-flex flex-row">
+                    <img src="../assets/images/registered-user.png" alt="">
+                    <span>Registered Users</span>
+                </div>
+            </div>
+            <div class="list d-flex flex-row" (click)="logout()">
+                <img src="../assets/images/logout.png" alt="">
+                <span>Logout</span>
+            </div>
+        </div>
+        <!-- sidebar navigation link -->
+    </div>
+
+    <!-- End: sidebar -->
+
+
+    <div class="main d-flex align-items-start flex-column p-0 overflow-hidden">
+        <div class="hero-section overflow-hidden">
+            <div class="heading d-flex flex-column align-items-center justify-content-between flex-sm-row">
+                <p>Registered Users</p>
+                <div class="search-container">
+                    <input type="text" name="search" id="" placeholder="Search..." [(ngModel)]="searchQuery"
+                        (keyup.enter)="performSearch()">
+                    <img src="../assets/images/search.png" alt="search">
+                </div>
+            </div>
+            <div class="pb-4 table-main-container">
+                <div *ngIf="!noData" class="table-container ms-4 me-4 overflow-auto" infiniteScroll
+                    [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="onScroll()"
+                    [scrollWindow]="false">
+                    <table class="table ">
+                        <thead>
+                            <tr *ngFor="let heading of tableheader;">
+                                <th scope="col">{{heading.no}}</th>
+                                <th scope="col">{{heading.name}}</th>
+                                <th scope="col">{{heading.dateofjoining}}</th>
+                                <th scope="col">{{heading.email}}</th>
+                                <th scope="col">{{heading.designation}}</th>
+                                <th scope="col">{{heading.status}}</th>
+                                <th scope="col">{{heading.action}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of RegisterUsers;let i = index">
+                                <td scope="row">{{ i+1 }}</td>
+                                <td>{{ data.fullName || '-' }}</td>
+                                <td>{{ data.dateOfJoining || '-' }}</td>
+                                <td>{{ data.email || '-' }}</td>
+                                <td>{{ designationData[data.designation] || '-' }}</td>
+                                <td class="d-flex gap-2 align-items-center h-100">
+                                    <span *ngIf="data.isActive">Active</span>
+                                    <span *ngIf="!data.isActive">Inactive</span>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" role="switch"
+                                            (change)="onToggle(data.employeeId,$event)" [checked]="data.isActive">
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="btn-pop">
+                                        <button type="button" class="btn butn" [ngbPopover]="popoverContent"
+                                            placement="bottom" [disabled]="!data.isActive">
+                                            <fa-icon class="ellipsis" [icon]="ellipsis"></fa-icon>
+                                        </button>
+
+                                        <ng-template #popoverContent>
+                                            <div class="popoverBtns">
+                                                <div class="edit-container">
+                                                    <label for="edit-icons"><fa-icon class="edit-icon"
+                                                            [icon]="editIcon"></fa-icon></label>
+                                                    <button class="btn" id="edit-icons" type="button"
+                                                        (click)="openOverlay(data.employeeId)">Edit</button>
+                                                </div>
+                                                <div class="booking-container">
+                                                    <img class="booking-icon" src="../../../assets/images/calender.png"
+                                                        alt="">
+                                                    <button class="btn" type="button" (click)="disablebtn($event)"
+                                                        [disabled]="true">Booking
+                                                        History</button>
+                                                </div>
+                                            </div>
+
+                                        </ng-template>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card m-5" *ngIf="noData">
+                    <div class="card-body d-flex flex-column align-items-center">
+                        <img src="../assets/images/no-data.png" alt="">
+                        <h5 class="card-title">No Record Found</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

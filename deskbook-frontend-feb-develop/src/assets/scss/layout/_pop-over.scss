@@ -1,0 +1,123 @@
+.popoverBtns {
+
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    background-color: #FFFFFF;
+}
+
+.btn {
+    border: none;
+}
+
+
+.btn-pop {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .btn:focus-within {
+        border-color: blue;
+    }
+
+    .btn:hover {
+        border: 1px solid blue;
+    }
+
+    .butn:disabled {
+        color: var(--bs-btn-disabled-color);
+        pointer-events: none;
+        border-color: var(--bs-btn-disabled-border-color);
+        background-color: white;
+        opacity: 1;
+    }
+}
+
+
+.butn {
+    border: 1px solid $gray;
+    border-radius: 50%;
+    color: $gray;
+    padding: 0px;
+    width: 25px;
+
+    &:focus-within {
+        color: blue;
+    }
+
+    &:hover {
+        color: blue;
+    }
+}
+
+.ellipsis {
+    width: 15px;
+    height: 5px;
+}
+
+.edit-icon {
+    display: flex;
+    width: 25px;
+    height: 20px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.edit-container {
+    margin-left: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
+
+    .booking-icon {
+        margin-right: 5px;
+    }
+
+    .btn {
+        display: flex;
+        align-items: flex-start;
+        width: 100%;
+    }
+
+    .btn:hover {
+        border: none;
+    }
+
+    .btn:active {
+        border-color: none;
+    }
+}
+
+.svg-inline--fa.fa-pen.fa-w-16 {
+    width: 25px;
+    height: 20px;
+    pointer-events: none;
+}
+
+.booking-container {
+    margin-left: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
+
+    .booking-icon {
+        margin-right: 5px;
+    }
+
+    .btn {
+        display: flex;
+        align-items: flex-start;
+        width: 100%;
+    }
+
+    .btn:hover {
+        border: none;
+    }
+
+    .btn:active {
+        border-color: none;
+    }
+}

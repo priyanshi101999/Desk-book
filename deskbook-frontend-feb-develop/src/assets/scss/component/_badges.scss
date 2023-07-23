@@ -1,0 +1,32 @@
+.seat-description {
+    font-size: 16px;
+    font-weight: 600;
+    gap: 20px;
+
+    .seat-badge {
+        display: inline-block;
+        border-radius: 2px;
+        height: 18px;
+        width: 18px;
+
+        &.reserved {
+            background-color: $red;
+        }
+
+        &.available {
+            background-color: $green;
+        }
+
+        &.booked {
+            background-color: $primary;
+        }
+
+        &.unavailable {
+            background-color: $secondary;
+        }
+
+        &.unassigned {
+            background-color: $gray;
+        }
+    }
+}

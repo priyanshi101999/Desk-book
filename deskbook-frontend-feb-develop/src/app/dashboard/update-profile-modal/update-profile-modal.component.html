@@ -1,0 +1,24 @@
+<!-- <div class="overlay cdk-overlay-container">
+
+    <button class="save-btn" (click)="popup = !popup" type="button" cdkOverlayOrigin #trigger="cdkOverlayOrigin">
+        Save
+    </button>
+
+
+</div> -->
+
+
+<ng-template cdkConnectedOverlay [cdkConnectedOverlayOpen]="popup"
+    [cdkConnectedOverlayHasBackdrop]="true" (backdropClick)="handleBackdropClick()">
+    <div class="d-flex align-items-center justify-content-center overlay cdk-overlay-container">
+
+        <div class="save-popup">
+            <p>To access deskbook features, please update your profile information.</p>
+            <div class="btn">
+                <button (click)="closePopover()">OK</button>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<!-- <div style="background-color: red; width: 500px;height: 500px; z-index: 100;position: absolute;">fhsdgjdhkjgsdjkhgjkdsgjksdgjkdsbjkgbdskjgbjkdsgbjkdsbgkjsdbgkjbsgjkbkj</div> -->

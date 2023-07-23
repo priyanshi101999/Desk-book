@@ -1,0 +1,13 @@
+<ng-template cdkConnectedOverlay [cdkConnectedOverlayOpen]="popup"
+    [cdkConnectedOverlayHasBackdrop]="true" (backdropClick)="handleBackdropClick()">
+    <div class="d-flex align-items-center justify-content-center overlay cdk-overlay-container">
+
+        <div class="save-popup">
+            <p>You have unsaved changes that will be lost.</p>
+            <div class="btn">
+                <button (click)="closeOverlay()">OK</button>
+                <button (click)="closePopover()">Cancel</button>
+            </div>
+        </div>
+    </div>
+</ng-template>

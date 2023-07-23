@@ -1,0 +1,52 @@
+#check:checked+.sidebar {
+    display: flex;
+    flex-direction: column;
+}
+
+.registered-user {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+}
+
+.admin-portal {
+    height: 100%;
+    width: 100%;
+}
+
+.admin-brand-container {
+    border-bottom: 1px solid $border-color;
+    padding: 0px 30px;
+    height: 98px;
+    width: 100%;
+}
+
+.hamburger {
+    img {
+        cursor: pointer;
+    }
+}
+
+.sidebar {
+    display: none;
+    width: 300px;
+    font-size: $font-size-16;
+    line-height: $line-height-30;
+    font-weight: 600;
+    height: 100%;
+    border-right: 1px solid $border-color;
+}
+
+.sidebar-list {
+    color: $gray;
+    margin: 30px 0px 30px 30px;
+    height: 100%;
+
+    .sidebar-links {
+        gap: 30px;
+    }
+
+    .list {
+        gap: 20px;
+    }
+}

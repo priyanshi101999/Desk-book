@@ -1,0 +1,30 @@
+<!-- Landing Page -->
+
+<!-- Landing-page-body -->
+<div class="landing-page-wrapper d-flex flex-column align-items-center justify-content-center m-2 m-sm-0">
+    <div class="landing-page-content d-flex flex-column ">
+        <figure>
+            <img src="../assets/images/landing-page.png" alt="landing-page">
+        </figure>
+        <span>Take control of your work environment and maximize your output with easy workspace reservations.</span>
+        <button type="button" class="button p-2 mx-2 p-sm-auto" (click)="onClickGetFlagValue()">BOOK YOUR SEAT NOW</button>    
+    </div>
+</div>
+<!-- End: Landing-page-body -->
+
+<!-- Start: isActive modal popup  -->
+<ng-template cdkConnectedOverlay [cdkConnectedOverlayOpen]="popup"
+    [cdkConnectedOverlayHasBackdrop]="true" (backdropClick)="handleBackdropClick()">
+    <div class="d-flex align-items-center justify-content-center overlay cdk-overlay-container">
+
+        <div class="save-popup">
+            <p>You are an Inactive user, please contact your administrator</p>
+            <div class="btn">
+                <button (click)="logout()">OK</button>
+            </div>
+        </div>
+    </div>
+</ng-template>
+<!-- End: isActive modal popup  -->
+
+<!-- End: Landing Page -->

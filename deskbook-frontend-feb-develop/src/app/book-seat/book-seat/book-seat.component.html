@@ -1,0 +1,330 @@
+<div class="main">
+    <div class="d-flex flex-wrap align-item-md-center justify-content-md-between gap-4">
+
+        <!-- Title -->
+        <div class="title">Book Seat</div>
+
+        <!-- Filters -->
+        <div class="filters">
+            <form [formGroup]="filterForm">
+                <div class="form-row d-flex flex-wrap gap-3">
+
+                    <!-- DatePicker -->
+                    <div class="form-group d-flex gap-2 align-items-center">
+                        <label for="calender">Date: </label>
+                        <div class="calender">
+                            <input id="calender" type="text" class="form-control" placeholder="mm/dd/yyyy" bsDatepicker
+                                [bsConfig]="{ isAnimated: true , showWeekNumbers: false }" name="date" [daysDisabled]="[6, 0]"
+                                formControlName="date" readonly (keydown)="false" (paste)="false"(cut)="false" [minDate]="minDate"  [maxDate]="maxDate"
+                                (bsValueChange)="onChangeDate($event)"/>
+                            <label for="calender"><img class="image-icon" src="../assets/images/calender.png"
+                                    alt="calender" /></label>
+                        </div>
+                    </div>
+                    <!-- End: DatePicker -->
+
+                    <!-- City Filter -->
+                    <div class="form-group d-flex gap-2 align-items-center">
+                        <label for="city">City: </label>
+                        <ng-select appearance="outline" id="city" placeholder="Select City"
+                            formControlName="city" [items]="city" bindLabel="name" bindValue="id"
+                            (change)="onChangeCity($event)" [clearable]="false">
+                        </ng-select>
+                        <label for="floor"><img class="dropdown-img-bks" src="../assets/images/dropdown.png"
+                                alt="dropdown" /></label>
+                    </div>
+                    <!-- End: City Filter -->
+
+                    <!-- Floor Filter -->
+                    <div class="form-group d-flex gap-2 align-items-center">
+                        <label for="floor">Floor: </label>
+                        <ng-select appearance="outline" id="floor" placeholder="Select Floor"
+                            formControlName="floor" [items]="floor" bindLabel="name" bindValue="id"
+                            (change)="onChangeFloor($event)" [clearable]="false">
+                        </ng-select>
+                        <label for="floor"><img class="dropdown-img-bks" src="../assets/images/dropdown.png"
+                                alt="dropdown" /></label>
+                    </div>
+                    <!-- End: Floor Filter -->
+                </div>
+            </form>
+        </div>
+        <!-- End: Filters -->
+    </div>
+
+    <!-- Seat Details Container -->
+    <div class="seat-container">
+        <div class="seat-details mb-5 d-md-flex align-item-md-center justify-content-md-between">
+
+            <!-- Floor Details -->
+            <div class="col-12 col-sm-3 floor">
+                {{floorChange}}
+            </div>
+            <!-- End: Floor Details -->
+
+            <!-- Seat Types Description -->
+            <div class="seat-description d-flex flex-wrap align-items-center">
+                <div class="d-flex align-items-center">
+                    <span class="seat-badge reserved"></span>
+                    <span class="ms-2">Reserved</span>
+                </div>
+                <div class="d-flex align-items-center">
+                    <span class="seat-badge available"></span>
+                    <span class="ms-2">Available</span>
+                </div>
+                <div class="d-flex align-items-center">
+                    <span class="seat-badge booked"></span>
+                    <span class="ms-2">Booked</span>
+                </div>
+                <div class="d-flex align-items-center">
+                    <span class="seat-badge unavailable"></span>
+                    <span class="ms-2">Unavailable</span>
+                </div>
+                <div class="d-flex align-items-center">
+                    <span class="seat-badge unassigned"></span>
+                    <span class="ms-2">Unassigned</span>
+                </div>
+            </div>
+            <!-- End: Seat Types Description -->
+        </div>
+
+        <!-- Seat View  -->
+        <div class="seat-configuration">
+
+            <!-- View when filters are not selected -->
+            <div *ngIf="!seatView" class="no-seat-content">
+                <div>Please Select date, city and floor to proceed</div>
+            </div>
+
+            <!-- View when filters are selected -->
+            <div *ngIf="seatView" class="d-flex">
+
+                <!-- Table for seat Count -->
+                <table class="count">
+                    <thead>
+                        <tr class="hide">
+                            <th>n</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let n of seatCount">
+                            <td><b>{{n}}</b></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- End: Table for seat Count -->
+
+                <!-- Seat Columns A and B -->
+                <div class="pairs d-flex flex-grow flex-fill g-3">
+                    <table class="tbl-A">
+                        <thead>
+                            <tr class="tblA-row">
+                                <th>A</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <div *ngFor="let data of seatView">
+                                <div *ngIf="(data.column.name === 'A')">
+                                    <tr>
+                                        <td>
+                                            <a><img src="../../../assets/images/unassigned seat.svg" class="desk"></a>
+                                        </td>
+                                    </tr>
+                                </div>
+                            </div>
+                        </tbody>
+                    </table>
+                    <table class="tbl-B">
+                        <thead>
+                            <tr class="tblB-row">
+                                <th>B</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <div *ngFor="let data of seatView">
+                                <div *ngIf="(data.column.name === 'B')">
+                                    <tr>
+                                        <td>
+                                            <a><img src="../../../assets/images/unassigned seat.svg" class="desk"></a>
+                                        </td>
+                                    </tr>
+                                </div>
+                            </div>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- End: Seat Columns A and B -->
+
+                <!-- Seat Columns C and D -->
+                <div class="pairs d-flex flex-grow flex-fill g-3">
+                    <table class="tbl-A">
+                        <thead>
+                            <tr class="tblA-row">
+                                <th>C</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <div *ngFor="let data of seatView">
+                                <div *ngIf="(data.column.name === 'C')">
+                                    <tr>
+                                        <td>
+                                            <a><img src="../../../assets/images/unassigned seat.svg" class="desk"></a>
+                                        </td>
+                                    </tr>
+                                </div>
+                            </div>
+                        </tbody>
+                    </table>
+                    <table class="tbl-B">
+                        <thead>
+                            <tr class="tblB-row">
+                                <th>D</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <div *ngFor="let data of seatView">
+                                <div *ngIf="(data.column.name === 'D')">
+                                    <tr>
+                                        <td>
+                                            <a><img src="../../../assets/images/unassigned seat.svg" class="desk"></a>
+                                        </td>
+                                    </tr>
+                                </div>
+                            </div>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- End: Seat Columns C and D -->
+
+                <!-- Seat Columns E and F -->
+                <div class="pairs d-flex flex-grow flex-fill g-3">
+                    <table class="tbl-A">
+                        <thead>
+                            <tr class="tblA-row">
+                                <th>E</th>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            <div *ngFor="let data of seatView">
+                                <div *ngIf="(data.column.name === 'E')">
+                                    <tr>
+                                        <td>
+                                            <a><img src="../../../assets/images/unassigned seat.svg" class="desk"></a>
+                                        </td>
+                                    </tr>
+                                </div>
+                            </div>
+                        </tbody>
+                    </table>
+                    <table class="tbl-B">
+                        <thead>
+                            <tr class="tblB-row">
+                                <th>F</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <div *ngFor="let data of seatView">
+                                <div *ngIf="(data.column.name === 'F')">
+                                    <tr>
+                                        <td>
+                                            <a><img src="../../../assets/images/unassigned seat.svg" class="desk"></a>
+                                        </td>
+                                    </tr>
+                                </div>
+                            </div>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- End: Seat Columns E and F -->
+
+                <!-- Seat Columns G and H -->
+                <div class="pairs d-flex flex-grow flex-fill g-3">
+                    <table class="tbl-A">
+                        <thead>
+                            <tr class="tblA-row">
+                                <th>G</th>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            <div *ngFor="let data of seatView">
+                                <div *ngIf="(data.column.name === 'G')">
+                                    <tr>
+                                        <td>
+                                            <a><img src="../../../assets/images/unassigned seat.svg" class="desk"></a>
+                                        </td>
+                                    </tr>
+                                </div>
+                            </div>
+                        </tbody>
+                    </table>
+                    <table class="tbl-B">
+                        <thead>
+                            <tr class="tblB-row">
+                                <th>H</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <div *ngFor="let data of seatView">
+                                <div *ngIf="(data.column.name === 'H')">
+                                    <tr>
+                                        <td>
+                                            <a><img src="../../../assets/images/unassigned seat.svg" class="desk"></a>
+                                        </td>
+                                    </tr>
+                                </div>
+                            </div>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- End: Seat Columns G and H -->
+
+                <!-- Seat Columns I and J -->
+                <div class="pairs d-flex flex-grow flex-fill g-3">
+                    <table class="tbl-A">
+                        <thead>
+                            <tr class="tblA-row">
+                                <th>I</th>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            <div *ngFor="let data of seatView">
+                                <div *ngIf="(data.column.name === 'I')">
+                                    <tr>
+                                        <td>
+                                            <a><img src="../../../assets/images/unassigned seat.svg" class="desk"></a>
+                                        </td>
+                                    </tr>
+                                </div>
+                            </div>
+                        </tbody>
+                    </table>
+                    <table class="tbl-B">
+                        <thead>
+                            <tr class="tblB-row">
+                                <th>J</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <div *ngFor="let data of seatView">
+                                <div *ngIf="(data.column.name === 'J')">
+                                    <tr>
+                                        <td>
+                                            <a><img src="../../../assets/images/unassigned seat.svg" class="desk"></a>
+                                        </td>
+                                    </tr>
+                                </div>
+                            </div>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- End: Seat Columns I and J -->
+
+            </div>
+        </div>
+        <!-- End: Seat View  -->
+    </div>
+    <!-- End: Seat Details Container -->
+</div>

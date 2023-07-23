@@ -1,0 +1,14 @@
+<ng-template cdkConnectedOverlay [cdkConnectedOverlayOpen]="popup"
+    [cdkConnectedOverlayHasBackdrop]="true" (backdropClick)="handleBackdropClick()">
+    <div class="d-flex align-items-center justify-content-center overlay cdk-overlay-container">
+
+        <div class="save-popup">
+            <p *ngIf="ifToggle">{{ifInActive}}</p>
+            <p *ngIf="!ifToggle">{{ifActive}}</p>
+            <div class="btn">
+                <button (click)="ToggleSwitch()">Yes</button>
+                <button (click)="closePopover()">No</button>
+            </div>
+        </div>
+    </div>
+</ng-template>
